@@ -44,12 +44,12 @@ pub fn sys_get_time(ts: *mut TimeVal, _tz: usize) -> isize {
 
 /// YOUR JOB: Finish sys_task_info to pass testcases
 pub fn sys_task_info(ti: *mut TaskInfo) -> isize {
-    let curr_time=get_time();
+    let curr_time=get_time_us();
     let task_ctr=get_current_task();
     unsafe {
         (*ti).status=task_ctr.task_status;
         (*ti).syscall_times=task_ctr.task_syscall_times;
-        (*ti).time=curr_time-task_ctr.task_start_time;
+        (*ti).time=curr_time/1000-task_ctr.task_start_time/1000;
     }
     0
 }
